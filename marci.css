@@ -10,7 +10,7 @@
     --color-accent: #A9793B;       /* brass accent, used sparingly */
     --color-border: #D8D1C3;
 
-    
+    /* type */
     --font-display: "Fraunces", Georgia, serif;
     --font-body: "Inter", Arial, sans-serif;
 
@@ -18,6 +18,8 @@
     --radius: 4px;
     --max-width: 1200px;
 }
+
+
 
 
 * {
@@ -47,7 +49,7 @@ a {
     text-decoration: none;
 }
 
-/* for less motion */
+/* respect users who've asked for less motion */
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
@@ -70,7 +72,8 @@ textarea:focus-visible {
 }
 
 
-/* GENERAL LAYOUT */
+/* General layout */
+
 .section {
     padding: 100px 8%;
     max-width: var(--max-width);
@@ -113,8 +116,7 @@ p {
 }
 
 
-/*   NAVIGATION */
- 
+/* navigation*/
 
 .navbar {
     position: sticky;
@@ -175,7 +177,7 @@ nav a:hover {
     color: var(--color-surface);
 }
 
-/* hamburger button: hidden on desktop, shown at the mobile  */
+/* hamburger button: hidden on desktop, shown at the mobile breakpoint below */
 .nav-toggle {
     display: none;
     flex-direction: column;
@@ -211,7 +213,7 @@ nav a:hover {
 }
 
 
-/*  BUTTONS  */
+/* buttons */
 
 .button {
     display: inline-block;
@@ -243,7 +245,7 @@ nav a:hover {
 }
 
 
-/* HERO/homepage */
+/* hero/homepage*/
 
 .hero {
     min-height: 80vh;
@@ -276,7 +278,7 @@ nav a:hover {
 }
 
 
-/* ABOUT section */
+/* about section*/
 
 .about {
     display: grid;
@@ -288,9 +290,7 @@ nav a:hover {
 .about-image img {
     height: 480px;
     object-fit: cover;
-    border-radius: 50%;
-    border: 1px solid black;
-    
+    border-radius: var(--radius);
 }
 
 .about-content .phone-link {
@@ -302,7 +302,7 @@ nav a:hover {
 }
 
 
-/* GET IT SOLD section */
+/* get it sold section*/
 
 .sold {
     background: var(--color-ink);
@@ -350,7 +350,7 @@ nav a:hover {
 }
 
 
-/*  SELLERS / BUYERS SPLIT */
+/* seller/buyers */
 
 .split-section {
     display: grid;
@@ -377,7 +377,7 @@ nav a:hover {
 }
 
 
-/* PROPERTY SEARCH */
+/* property search */
 
 .property-search {
     background: var(--color-surface);
@@ -422,7 +422,7 @@ textarea {
 }
 
 
-/*  Photo gallery Carousel */
+/* photo/gallery carousel */
 
 .carousel {
     position: relative;
@@ -436,7 +436,7 @@ textarea {
 .carousel-track {
     display: flex;
     list-style: none;
-    
+    /* JS sets transform: translateX(...) on this element to move slides */
     transition: transform 0.45s ease;
 }
 
@@ -506,7 +506,9 @@ textarea {
 }
 
 
-/* SERVICES */
+/* ==========================================================================
+   SERVICES
+   ========================================================================== */
 
 .services {
     background: var(--color-surface-alt);
@@ -529,7 +531,7 @@ textarea {
 }
 
 
-/*  CONTACT  */
+/* contacts section */
 
 .contact {
     display: grid;
@@ -560,15 +562,35 @@ textarea {
 
 .social-links {
     display: flex;
-    gap: 20px;
+    gap: 14px;
     margin-top: 24px;
     flex-wrap: wrap;
 }
 
-.social-links a {
-    font-weight: 500;
-    font-size: 0.9rem;
-    border-bottom: 1px solid var(--color-ink);
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    border: 1px solid var(--color-ink);
+    border-radius: 50%;
+
+    color: var(--color-ink);
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.social-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.social-icon:hover {
+    background: var(--color-ink);
+    color: var(--color-surface);
+    transform: translateY(-2px);
 }
 
 .contact-form {
@@ -588,7 +610,7 @@ textarea {
 }
 
 
-/* footer */
+/* footer section */
 
 footer {
     padding: 30px 8%;
@@ -599,7 +621,7 @@ footer {
 }
 
 
-/*  BACK TO TOP BUTTON */
+/* back to top button */
 
 .back-to-top {
     position: fixed;
@@ -615,6 +637,164 @@ footer {
     justify-content: center;
 
     background: var(--color-ink);
+    color: var(--color-surface);
+    border: none;
+    border-radius: 50%;
+
+    font-size: 1.2rem;
+    cursor: pointer;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
+}
+
+/* JS toggles this class on scroll */
+.back-to-top.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background: var(--color-accent);
+}
+
+
+/* table responsive */
+
+@media (max-width: 900px) {
+
+    /* collapse the inline nav into a dropdown panel triggered by the
+       hamburger button */
+    nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+
+        flex-direction: column;
+        gap: 0;
+
+        background: var(--color-surface);
+        border-bottom: 1px solid var(--color-border);
+
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    nav.is-open {
+        max-height: 320px;
+    }
+
+    nav a {
+        padding: 16px 6%;
+        border-top: 1px solid var(--color-border);
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+
+    .hero,
+    .about,
+    .sold,
+    .contact {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        gap: 40px;
+    }
+
+    .hero-image {
+        order: -1;
+    }
+
+    .hero-image img,
+    .about-image img {
+        height: 380px;
+    }
+
+    .about-image {
+        order: -1;
+    }
+
+    .sold {
+        gap: 40px;
+    }
+
+    .split-section {
+        grid-template-columns: 1fr;
+    }
+
+    .search-form {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .carousel-slide img {
+        height: 360px;
+    }
+}
+
+
+/*  MOBILE responsive(≤ 600px) */
+
+@media (max-width: 600px) {
+
+    .section {
+        padding: 70px 6%;
+    }
+
+    .hero {
+        padding: 50px 6%;
+        min-height: auto;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-buttons .button {
+        text-align: center;
+    }
+
+    .search-form {
+        grid-template-columns: 1fr;
+    }
+
+    .search-submit {
+        margin-top: 8px;
+    }
+
+    .stats {
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+
+    .carousel-slide img {
+        height: 280px;
+    }
+
+    .carousel-arrow {
+        width: 36px;
+        height: 36px;
+    }
+
+    .back-to-top {
+        right: 16px;
+        bottom: 16px;
+        width: 44px;
+        height: 44px;
+    }
+}kground: var(--color-ink);
     color: var(--color-surface);
     border: none;
     border-radius: 50%;
