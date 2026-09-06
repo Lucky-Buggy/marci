@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Marci Metzger | Pahrump Realtor</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="marci.css">
+</head>
+<body>
+
+    <!-- NAV -->
+    <header class="navbar">
+
+        <a href="#top" class="logo">Marci Metzger</a>
+
+        <!-- nav links: anchor -->
+        <nav id="primaryNav">
+            <a href="#top">Home</a>
+            <a href="#about">About</a>
+            <a href="#properties">Properties</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="navbar-actions">
+
+            <a href="tel:2069196886" class="nav-button">Call Now</a>
+
+            <!-- hamburger button, only shown on smaller screens -->
+            <button
+                id="navToggle"
+                class="nav-toggle"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="primaryNav"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- HERO -->
+        <section id="top" class="hero">
+
+            <div class="hero-content">
+
+                <p class="eyebrow">The Ridge Realty Group</p>
+
+                <h1>Pahrump Realtor</h1>
+
+                <p class="hero-text">
+                    Marci Metzger &mdash; realtor for nearly three decades,
+                    helping Pahrump buyers and sellers with confidence.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="tel:2069196886" class="button">Call Now</a>
+                    <a href="#properties" class="button secondary">View Properties</a>
+                </div>
+
+            </div>
+
+            <div class="hero-image">
+                
+                <img src="nevada.jpg" alt="Pahrump, Nevada real estate">
+            </div>
+
+        </section>
+
+
+        <!-- ABOUT -->
+        <section id="about" class="about section">
+
+            <div class="about-image">
+                
+                <img src="marci.jpg" alt="Marci Metzger">
+            </div>
+
+            <div class="about-content">
+                <p class="eyebrow">Marci Metzger</p>
+                <h2>Realtor for Nearly 3 Decades</h2>
+                <a href="tel:2069196886" class="phone-link">(206) 919-6886</a>
+            </div>
+
+        </section>
+
+
+        <!-- GET IT SOLD -->
+        <section class="sold section">
+
+            <div class="sold-text">
+                <p class="eyebrow">Top Residential Sales, Last 5 Years</p>
+                <h2>Get It Sold</h2>
+
+                <p>
+                    Our team works hard everyday to grow and learn, so that we
+                    may continue to excel in our market. Our clients deserve
+                    our best, &amp; we want to make sure our best is better every year.
+                </p>
+            </div>
+
+            <div class="stats">
+
+                <div class="stat">
+                    <strong>90+</strong>
+                    <span>Clients helped in 2021</span>
+                </div>
+
+                <div class="stat">
+                    <strong>$28.5M</strong>
+                    <span>In sales closed</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SELLERS / BUYERS -->
+        <section class="split-section">
+
+            <article class="feature-card">
+                <h2>Don't Just List It&hellip;</h2>
+                <p>
+                    Get it SOLD! We exhaust every avenue to ensure our
+                    listings are at the fingertips of every possible buyer,
+                    getting you top dollar for your home.
+                </p>
+            </article>
+
+            <article class="feature-card feature-card-dark">
+                <h2>Guide to Buyers</h2>
+                <p>
+                    Nobody knows the market like we do. Enjoy having a pro
+                    at your service &mdash; market analysis, upgrade lists,
+                    contractors on speed dial, &amp; more!
+                </p>
+            </article>
+
+        </section>
+
+
+        <!-- PROPERTY SEARCH -->
+        <section id="properties" class="property-search section">
+
+            <div class="section-heading">
+                <p class="eyebrow">Find Your Dream Home</p>
+                <h2>Search Listings</h2>
+            </div>
+
+            <form id="propertyForm" class="search-form">
+
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <select id="location">
+                        <option value="">Select</option>
+                        <option value="pahrump">Pahrump</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="type">Type</label>
+                    <select id="type">
+                        <option value="">Select</option>
+                        <option value="house">House</option>
+                        <option value="condo">Condo</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="sortBy">Sort By</label>
+                    <select id="sortBy">
+                        <option value="">Select</option>
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="price-asc">Least Expensive to Most</option>
+                        <option value="price-desc">Most Expensive to Least</option>
+                        <option value="beds-asc">Bedrooms (Low to High)</option>
+                        <option value="beds-desc">Bedrooms (High to Low)</option>
+                        <option value="baths-asc">Bathrooms (Low to High)</option>
+                        <option value="baths-desc">Bathrooms (High to Low)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="bedrooms">Bedrooms</label>
+                    <select id="bedrooms">
+                        <option value="">Any Number</option>
+                        <option value="studio">Studio</option>
+                        <option value="1">1+</option>
+                        <option value="2">2+</option>
+                        <option value="3">3+</option>
+                        <option value="4">4+</option>
+                        <option value="5">5+</option>
+                        <option value="6">6+</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="baths">Baths</label>
+                    <select id="baths">
+                        <option value="">Any Number</option>
+                        <option value="1">1+</option>
+                        <option value="2">2+</option>
+                        <option value="3">3+</option>
+                        <option value="4">4+</option>
+                        <option value="5">5+</option>
+                        <option value="6">6+</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="minPrice">Min Price</label>
+                    <input type="number" id="minPrice" placeholder="$">
+                </div>
+
+                <div class="form-group">
+                    <label for="maxPrice">Max Price</label>
+                    <input type="number" id="maxPrice" placeholder="$">
+                </div>
+
+                <button type="submit" class="button search-submit">Search Now</button>
+
+            </form>
+
+        </section>
+
+
+        <!-- PHOTO GALLERY CAROUSEL -->
+        <section class="gallery section">
+
+            <div class="section-heading">
+                <p class="eyebrow">Photo Gallery</p>
+                <h2>Life in Pahrump</h2>
+            </div>
+
+            <!-- Carousel -->
+            <div class="carousel" id="galleryCarousel">
+
+                <div class="carousel-viewport">
+                    <ul class="carousel-track">
+
+                      
+                        <li class="carousel-slide">
+                            <img src="property1.jpg" alt="Pahrump property photo 1">
+                        </li>
+                        <li class="carousel-slide">
+                            <img src="property2.jpg" alt="Pahrump property photo 2">
+                        </li>
+                        <li class="carousel-slide">
+                            <img src="property3.jpg" alt="Pahrump property photo 3">
+                        </li>
+                        <li class="carousel-slide">
+                            <img src="property4.jpg" alt="Pahrump property photo 4">
+                        </li>
+                        <li class="carousel-slide">
+                            <img src="property5.jpg" alt="Pahrump property photo 5">
+                        </li>
+                        <li class="carousel-slide">
+                            <img src="property6.jpg" alt="Pahrump property photo 6">
+                        </li>
+
+                    </ul>
+                </div>
+
+                <button class="carousel-arrow carousel-prev" aria-label="Previous photo">&#10094;</button>
+                <button class="carousel-arrow carousel-next" aria-label="Next photo">&#10095;</button>
+
+                
+                <div class="carousel-dots" id="carouselDots"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SERVICES -->
+        <section id="services" class="services section">
+
+            <div class="section-heading">
+                <p class="eyebrow">Our Services</p>
+                <h2>Real Estate Done Right</h2>
+            </div>
+
+            <div class="services-grid">
+
+                <article class="service">
+                    <h3>Commercial &amp; Residential</h3>
+                    <p>
+                        Nervous about your property adventure? Don't be.
+                        Whether you're getting ready to buy or sell your
+                        residence, looking at investment properties, or just
+                        curious about the markets, our team ensures you get
+                        the best experience possible!
+                    </p>
+                </article>
+
+                <article class="service">
+                    <h3>Find The Right Property</h3>
+                    <p>
+                        Large or small, condo or mansion, we can find it and
+                        get it at the price that's right. Fixer-uppers?
+                        Luxury? We can help with all of it! We live, work,
+                        and play in this community, and we're happy to help
+                        you find where to put your hard-earned dollars.
+                    </p>
+                </article>
+
+                <article class="service">
+                    <h3>Rely on Expertise</h3>
+                    <p>
+                        If you have questions about affordability, credit,
+                        and loan options, trust us to connect you with the
+                        right people to get the answers you need in a timely
+                        fashion. We make sure you feel confident and
+                        educated every step of the way.
+                    </p>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTACT -->
+        <section id="contact" class="contact section">
+
+            <div class="contact-info">
+
+                <p class="eyebrow">Call or Visit</p>
+                <h2>Let's Talk About Your Next Move</h2>
+
+                <p class="contact-name">Marci Metzger &mdash; The Ridge Realty Group</p>
+
+                <p>3190 HW-160, Suite F<br>Pahrump, Nevada 89048</p>
+
+                <a href="tel:2069196886" class="phone-link">(206) 919-6886</a>
+
+                <p>Open daily: 8:00 AM &ndash; 7:00 PM</p>
+
+                <!-- social links -->
+                <div class="social-links">
+                    <a href="https://www.facebook.com/MarciHomes/" target="_blank" rel="noopener">Facebook</a>
+                    <a href="https://www.instagram.com/marcimetzger_theridge/" target="_blank" rel="noopener">Instagram</a>
+                    <a href="https://www.linkedin.com/in/marci-metzger-30642496/" target="_blank" rel="noopener">LinkedIn</a>
+                    <a href="https://www.yelp.com/biz/xr3yQN_m2SgO0R_7S6p62w" target="_blank" rel="noopener">Yelp</a>
+                </div>
+
+            </div>
+
+            <form id="contactForm" class="contact-form">
+
+                <label for="name">Name</label>
+                <input type="text" id="name" required placeholder="Juan Dela Cruz">
+
+                <label for="email">Email</label>
+                <input type="email" id="email" required placeholder="example@gmail.com">
+
+                <label for="message">Message</label>
+                <textarea id="message" rows="5"></textarea>
+
+                <button type="submit" class="button">Send Message</button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Copyright &copy; 2026 Marci Metzger &mdash; All Rights Reserved</p>
+    </footer>
+
+
+    <!-- floating back-to-top button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">&#8593;</button>
+
+
+    <script src="marci.js"></script>
+
+</body>
+</html>
