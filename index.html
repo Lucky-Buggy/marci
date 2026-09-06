@@ -32,9 +32,384 @@
 
             <a href="tel:2069196886" class="nav-button">Call Now</a>
 
-            <!-- hamburger button, only shown on smaller screens -->
             <button
                 id="navToggle"
+                class="nav-toggle"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="primaryNav"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- HERO -->
+        <section id="top" class="hero">
+
+            <div class="hero-content">
+
+                <p class="eyebrow">The Ridge Realty Group</p>
+
+                <h1>Pahrump Realtor</h1>
+
+                <p class="hero-text">
+                    Marci Metzger &mdash; realtor for nearly three decades,
+                    helping Pahrump buyers and sellers with confidence.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="tel:2069196886" class="button">Call Now</a>
+                    <a href="#properties" class="button secondary">View Properties</a>
+                </div>
+
+            </div>
+
+            <div class="hero-image">
+                <img src="nevada.jpg" alt="Pahrump, Nevada real estate">
+            </div>
+
+        </section>
+
+
+        <!-- ABOUT -->
+        <section id="about" class="about section">
+
+            <div class="about-image">
+                <img src="marci.jpg" alt="Marci Metzger">
+            </div>
+
+            <div class="about-content">
+                <p class="eyebrow">Marci Metzger</p>
+                <h2>Realtor for Nearly 3 Decades</h2>
+                <a href="tel:2069196886" class="phone-link">(206) 919-6886</a>
+            </div>
+
+        </section>
+
+
+        <!-- GET IT SOLD -->
+        <section class="sold section">
+
+            <div class="sold-text">
+                <p class="eyebrow">Top Residential Sales, Last 5 Years</p>
+                <h2>Get It Sold</h2>
+
+                <p>
+                    Our team works hard everyday to grow and learn, so that we
+                    may continue to excel in our market. Our clients deserve
+                    our best, &amp; we want to make sure our best is better every year.
+                </p>
+            </div>
+
+            <div class="stats">
+
+                <div class="stat">
+                    <strong>90+</strong>
+                    <span>Clients helped in 2021</span>
+                </div>
+
+                <div class="stat">
+                    <strong>$28.5M</strong>
+                    <span>In sales closed</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SELLERS / BUYERS -->
+        <section class="split-section">
+
+            <article class="feature-card">
+                <h2>Don't Just List It&hellip;</h2>
+                <p>
+                    Get it SOLD! We exhaust every avenue to ensure our
+                    listings are at the fingertips of every possible buyer,
+                    getting you top dollar for your home.
+                </p>
+            </article>
+
+            <article class="feature-card feature-card-dark">
+                <h2>Guide to Buyers</h2>
+                <p>
+                    Nobody knows the market like we do. Enjoy having a pro
+                    at your service &mdash; market analysis, upgrade lists,
+                    contractors on speed dial, &amp; more!
+                </p>
+            </article>
+
+        </section>
+
+
+        <!-- PROPERTY SEARCH -->
+        <section id="properties" class="property-search section">
+
+            <div class="section-heading">
+                <p class="eyebrow">Find Your Dream Home</p>
+                <h2>Search Listings</h2>
+            </div>
+
+            <form id="propertyForm" class="search-form">
+
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <select id="location">
+                        <option value="">Select</option>
+                        <option value="pahrump">Pahrump</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="type">Type</label>
+                    <select id="type">
+                        <option value="">Select</option>
+                        <option value="house">House</option>
+                        <option value="condo">Condo</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="sortBy">Sort By</label>
+                    <select id="sortBy">
+                        <option value="">Select</option>
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                        <option value="price-asc">Least Expensive to Most</option>
+                        <option value="price-desc">Most Expensive to Least</option>
+                        <option value="beds-asc">Bedrooms (Low to High)</option>
+                        <option value="beds-desc">Bedrooms (High to Low)</option>
+                        <option value="baths-asc">Bathrooms (Low to High)</option>
+                        <option value="baths-desc">Bathrooms (High to Low)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="bedrooms">Bedrooms</label>
+                    <select id="bedrooms">
+                        <option value="">Any Number</option>
+                        <option value="studio">Studio</option>
+                        <option value="1">1+</option>
+                        <option value="2">2+</option>
+                        <option value="3">3+</option>
+                        <option value="4">4+</option>
+                        <option value="5">5+</option>
+                        <option value="6">6+</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="baths">Baths</label>
+                    <select id="baths">
+                        <option value="">Any Number</option>
+                        <option value="1">1+</option>
+                        <option value="2">2+</option>
+                        <option value="3">3+</option>
+                        <option value="4">4+</option>
+                        <option value="5">5+</option>
+                        <option value="6">6+</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="minPrice">Min Price</label>
+                    <input type="number" id="minPrice" placeholder="$">
+                </div>
+
+                <div class="form-group">
+                    <label for="maxPrice">Max Price</label>
+                    <input type="number" id="maxPrice" placeholder="$">
+                </div>
+
+                <button type="submit" class="button search-submit">Search Now</button>
+
+            </form>
+
+        </section>
+
+
+        <!-- PHOTO GALLERY CAROUSEL -->
+        <section class="gallery section">
+
+            <div class="section-heading">
+                <p class="eyebrow">Photo Gallery</p>
+                <h2>Life in Pahrump</h2>
+            </div>
+
+            <div class="carousel" id="galleryCarousel">
+
+                <div class="carousel-viewport">
+                    <ul class="carousel-track">
+
+                        <li class="carousel-slide">
+                            <img src="property1.jpg" alt="Pahrump property photo 1">
+                        </li>
+                        <li class="carousel-slide">
+                            <img src="property2.jpg" alt="Pahrump property photo 2">
+                        </li>
+                        <li class="carousel-slide">
+                            <img src="property3.jpg" alt="Pahrump property photo 3">
+                        </li>
+                        <li class="carousel-slide">
+                            <img src="property4.jpg" alt="Pahrump property photo 4">
+                        </li>
+                        <li class="carousel-slide">
+                            <img src="property5.jpg" alt="Pahrump property photo 5">
+                        </li>
+                        <li class="carousel-slide">
+                            <img src="property6.jpg" alt="Pahrump property photo 6">
+                        </li>
+
+                    </ul>
+                </div>
+
+                <button class="carousel-arrow carousel-prev" aria-label="Previous photo">&#10094;</button>
+                <button class="carousel-arrow carousel-next" aria-label="Next photo">&#10095;</button>
+
+                <div class="carousel-dots" id="carouselDots"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SERVICES -->
+        <section id="services" class="services section">
+
+            <div class="section-heading">
+                <p class="eyebrow">Our Services</p>
+                <h2>Real Estate Done Right</h2>
+            </div>
+
+            <div class="services-grid">
+
+                <article class="service">
+                    <h3>Commercial &amp; Residential</h3>
+                    <p>
+                        Nervous about your property adventure? Don't be.
+                        Whether you're getting ready to buy or sell your
+                        residence, looking at investment properties, or just
+                        curious about the markets, our team ensures you get
+                        the best experience possible!
+                    </p>
+                </article>
+
+                <article class="service">
+                    <h3>Find The Right Property</h3>
+                    <p>
+                        Large or small, condo or mansion, we can find it and
+                        get it at the price that's right. Fixer-uppers?
+                        Luxury? We can help with all of it! We live, work,
+                        and play in this community, and we're happy to help
+                        you find where to put your hard-earned dollars.
+                    </p>
+                </article>
+
+                <article class="service">
+                    <h3>Rely on Expertise</h3>
+                    <p>
+                        If you have questions about affordability, credit,
+                        and loan options, trust us to connect you with the
+                        right people to get the answers you need in a timely
+                        fashion. We make sure you feel confident and
+                        educated every step of the way.
+                    </p>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTACT -->
+        <section id="contact" class="contact section">
+
+            <div class="contact-info">
+
+                <p class="eyebrow">Call or Visit</p>
+                <h2>Let's Talk About Your Next Move</h2>
+
+                <p class="contact-name">Marci Metzger &mdash; The Ridge Realty Group</p>
+
+                <p>3190 HW-160, Suite F<br>Pahrump, Nevada 89048</p>
+
+                <a href="tel:2069196886" class="phone-link">(206) 919-6886</a>
+
+                <p>Open daily: 8:00 AM &ndash; 7:00 PM</p>
+
+                <!-- social links -->
+                <div class="social-links">
+                    <a href="https://www.facebook.com/MarciHomes/" class="social-icon" target="_blank" rel="noopener" aria-label="Marci Metzger on Facebook">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M13.5 21v-7.5h2.5l.4-3H13.5V8.4c0-.87.24-1.46 1.5-1.46h1.6V4.35C16.3 4.24 15.4 4.15 14.35 4.15c-2.4 0-4.05 1.46-4.05 4.15V10.5H7.8v3H10.3V21h3.2z"/>
+                        </svg>
+                    </a>
+
+                    <a href="https://www.instagram.com/marcimetzger_theridge/" class="social-icon" target="_blank" rel="noopener" aria-label="Marci Metzger on Instagram">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                            <rect x="3" y="3" width="18" height="18" rx="5"/>
+                            <circle cx="12" cy="12" r="4.2"/>
+                            <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/>
+                        </svg>
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/marci-metzger-30642496/" class="social-icon" target="_blank" rel="noopener" aria-label="Marci Metzger on LinkedIn">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M6.94 8.5H3.56V20h3.38V8.5zM5.25 3.5a1.96 1.96 0 100 3.92 1.96 1.96 0 000-3.92zM20.44 20h-3.37v-6.1c0-1.46-.03-3.33-2.03-3.33-2.04 0-2.35 1.6-2.35 3.22V20H9.32V8.5h3.24v1.57h.05c.45-.86 1.56-1.77 3.2-1.77 3.43 0 4.63 2.26 4.63 5.19V20z"/>
+                        </svg>
+                    </a>
+
+                    <a href="https://www.yelp.com/biz/xr3yQN_m2SgO0R_7S6p62w" class="social-icon" target="_blank" rel="noopener" aria-label="Marci Metzger on Yelp">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M12 2a1.4 1.4 0 00-1.4 1.4v7.2a1.4 1.4 0 002.8 0V3.4A1.4 1.4 0 0012 2zM6.6 8.4a1.4 1.4 0 00-1.98 1.98l5 5a1.4 1.4 0 001.98-1.98l-5-5zM21.38 10.38a1.4 1.4 0 00-1.98-1.98l-5 5a1.4 1.4 0 001.98 1.98l5-5zM12 22a1.4 1.4 0 001.4-1.4v-7.2a1.4 1.4 0 00-2.8 0v7.2A1.4 1.4 0 0012 22zM17.4 15.6a1.4 1.4 0 001.98-1.98l-5-5a1.4 1.4 0 00-1.98 1.98l5 5zM2.62 13.62a1.4 1.4 0 001.98 1.98l5-5a1.4 1.4 0 00-1.98-1.98l-5 5z"/>
+                        </svg>
+                    </a>
+                </div>
+
+            </div>
+
+            <form id="contactForm" class="contact-form">
+
+                <label for="name">Name</label>
+                <input type="text" id="name" required placeholder="Juan Dela Cruz">
+
+                <label for="email">Email</label>
+                <input type="email" id="email" required placeholder="example@gmail.com">
+
+                <label for="message">Message</label>
+                <textarea id="message" rows="5"></textarea>
+
+                <button type="submit" class="button">Send Message</button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Copyright &copy; 2026 Marci Metzger &mdash; All Rights Reserved</p>
+    </footer>
+
+
+    <!-- floating back-to-top button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">&#8593;</button>
+
+
+    <script src="marci.js"></script>
+
+</body>
+</html>                id="navToggle"
                 class="nav-toggle"
                 aria-label="Open navigation menu"
                 aria-expanded="false"
