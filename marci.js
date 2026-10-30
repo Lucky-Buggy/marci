@@ -1,6 +1,3 @@
-
-
-
 // MOBILE NAVIGATIOn
 
 const navbar = document.querySelector(".navbar");
