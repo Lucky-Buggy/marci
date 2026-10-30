@@ -16,10 +16,10 @@
 
     <link rel="stylesheet" href="marci.css">
 
-    <!-- browser-tab icon: a mountain-ridge line, the same motif as the edge of the dark "Get It Sold" band -->
+    
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23221F1B'/%3E%3Cpath d='M4 23 11 13 15 18 21 8 28 23' fill='none' stroke='%23C9A065' stroke-width='2.4' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
 
-    <!-- link-preview text (when the URL is shared in a message or on social media) -->
+    
     <meta property="og:type" content="website">
     <meta property="og:title" content="Marci Metzger | Pahrump Realtor">
     <meta property="og:description" content="Marci Metzger of The Ridge Realty Group, a Pahrump, Nevada realtor for nearly three decades.">
@@ -74,7 +74,9 @@
 
         <div class="navbar-actions">
 
-            <a href="tel:+12069196886" class="nav-button">Call Now</a>
+            <a href="tel:+12069196886" class="nav-button" aria-label="Call Marci Metzger at (206) 919-6886" title="Call (206) 919-6886">
+                <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M160.2 25c-7.9-18.9-28.5-28.9-48.1-23.6l-5.5 1.5C42 20.5-13.2 83.1 2.9 159.3 40 334.3 177.7 472 352.7 509.1 429 525.3 491.5 470 509.1 405.4l1.5-5.5c5.4-19.7-4.7-40.3-23.5-48.1l-97.3-40.5c-16.5-6.9-35.6-2.1-47 11.8l-38.6 47.2c-70.3-34.9-126.9-93.3-159.4-165l44.2-36c13.9-11.3 18.6-30.4 11.8-47z"/></svg>
+            </a>
 
             <button
                 id="navToggle"
@@ -102,7 +104,11 @@
 
                 <p class="eyebrow">The Ridge Realty Group</p>
 
-                <h1>Pahrump Realtor</h1>
+                
+                <h1>
+                    <span class="word"><span>Pahrump</span></span>
+                    <span class="word"><span>Realtor</span></span>
+                </h1>
 
                 <p class="hero-text">
                     Marci Metzger &mdash; realtor for nearly three decades,
@@ -110,7 +116,10 @@
                 </p>
 
                 <div class="hero-buttons">
-                    <a href="tel:+12069196886" class="button">Call Now</a>
+                    <a href="tel:+12069196886" class="button">
+                        <svg class="button-icon" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M160.2 25c-7.9-18.9-28.5-28.9-48.1-23.6l-5.5 1.5C42 20.5-13.2 83.1 2.9 159.3 40 334.3 177.7 472 352.7 509.1 429 525.3 491.5 470 509.1 405.4l1.5-5.5c5.4-19.7-4.7-40.3-23.5-48.1l-97.3-40.5c-16.5-6.9-35.6-2.1-47 11.8l-38.6 47.2c-70.3-34.9-126.9-93.3-159.4-165l44.2-36c13.9-11.3 18.6-30.4 11.8-47z"/></svg>
+                        Call Now
+                    </a>
                     <a href="#properties" class="button secondary">View Properties</a>
                 </div>
 
@@ -119,6 +128,11 @@
             <div class="hero-image">
                 <img src="nevada.jpg" alt="Golf course pond with fountains and mountains in the distance" fetchpriority="high">
             </div>
+
+            <!-- decorative mountain-ridge line; CSS reveals it left to right once on load -->
+            <svg class="hero-ridge" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0 42 90 30 150 40 260 16 330 32 430 6 500 26 570 18 660 36 760 10 840 28 940 20 1040 38 1120 26 1200 36"/>
+            </svg>
 
         </section>
 
@@ -156,12 +170,12 @@
             <div class="stats">
 
                 <div class="stat">
-                    <strong>Nearly 90</strong>
+                    <strong>Nearly <span data-count="90">90</span></strong>
                     <span>Clients helped in 2021</span>
                 </div>
 
                 <div class="stat">
-                    <strong>$28.5M</strong>
+                    <strong>$<span data-count="28.5" data-decimals="1">28.5</span>M</strong>
                     <span>In sales closed</span>
                 </div>
 
@@ -202,6 +216,17 @@
                 <h2>Search Listings</h2>
             </div>
 
+            <!-- one-tap shortcuts that fill in the Location dropdown below -->
+            <div class="town-picks" role="group" aria-label="Search by town">
+                <span class="town-picks-label">Search by town</span>
+                <button type="button" class="town-chip" data-town="pahrump" aria-pressed="false">Pahrump</button>
+                <button type="button" class="town-chip" data-town="las-vegas" aria-pressed="false">Las Vegas</button>
+                <button type="button" class="town-chip" data-town="henderson" aria-pressed="false">Henderson</button>
+                <button type="button" class="town-chip" data-town="boulder-city" aria-pressed="false">Boulder City</button>
+                <button type="button" class="town-chip" data-town="mount-charleston" aria-pressed="false">Mount Charleston</button>
+                <button type="button" class="town-chip" data-town="amargosa-valley" aria-pressed="false">Amargosa Valley</button>
+            </div>
+
             <form id="propertyForm" class="search-form">
 
                 <div class="form-group">
@@ -210,6 +235,52 @@
                         <option value="">Select</option>
                         <option value="pahrump">Pahrump</option>
                         <option value="las-vegas">Las Vegas</option>
+                        <option value="henderson">Henderson</option>
+                        <option value="north-las-vegas">North Las Vegas</option>
+                        <optgroup label="More Nevada towns">
+                            <option value="alamo">Alamo</option>
+                            <option value="amargosa-valley">Amargosa Valley</option>
+                            <option value="beatty">Beatty</option>
+                            <option value="blue-diamond">Blue Diamond</option>
+                            <option value="boulder-city">Boulder City</option>
+                            <option value="cal-nev-ari">Cal Nev Ari</option>
+                            <option value="caliente">Caliente</option>
+                            <option value="cold-creek">Cold Creek</option>
+                            <option value="crystal">Crystal</option>
+                            <option value="dyer">Dyer</option>
+                            <option value="elko">Elko</option>
+                            <option value="ely">Ely</option>
+                            <option value="goldfield">Goldfield</option>
+                            <option value="goodsprings">Goodsprings</option>
+                            <option value="indian-springs">Indian Springs</option>
+                            <option value="jean">Jean</option>
+                            <option value="laughlin">Laughlin</option>
+                            <option value="logandale">Logandale</option>
+                            <option value="mcgill">McGill</option>
+                            <option value="mesquite">Mesquite</option>
+                            <option value="moapa">Moapa</option>
+                            <option value="mount-charleston">Mount Charleston</option>
+                            <option value="mountain-springs">Mountain Springs</option>
+                            <option value="nelson">Nelson</option>
+                            <option value="overton">Overton</option>
+                            <option value="palm-gardens">Palm Gardens</option>
+                            <option value="panaca">Panaca</option>
+                            <option value="pioche">Pioche</option>
+                            <option value="ruth">Ruth</option>
+                            <option value="sandy-valley">Sandy Valley</option>
+                            <option value="searchlight">Searchlight</option>
+                            <option value="tonopah">Tonopah</option>
+                        </optgroup>
+                        <optgroup label="Utah">
+                            <option value="alton">Alton</option>
+                            <option value="beryl">Beryl</option>
+                            <option value="brian-head">Brian Head</option>
+                            <option value="cedar-city">Cedar City</option>
+                            <option value="duck-creek-village">Duck Creek Village</option>
+                            <option value="hatch">Hatch</option>
+                            <option value="parowan">Parowan</option>
+                        </optgroup>
+                        <option value="other-areas">Other areas</option>
                     </select>
                 </div>
 
@@ -217,11 +288,10 @@
                     <label for="type">Type</label>
                     <select id="type" name="type">
                         <option value="">Select</option>
-                        <option value="house">House</option>
-                        <option value="condo">Condo</option>
-                        <option value="townhouse">Townhouse</option>
+                        <option value="residential">Residential</option>
                         <option value="land">Land</option>
-                        <option value="commercial">Commercial</option>
+                        <option value="residential-lease">Residential Lease</option>
+                        <option value="high-rise">High Rise</option>
                     </select>
                 </div>
 
@@ -278,11 +348,13 @@
 
                 <button type="submit" class="button search-submit">Search Now</button>
 
-                <!-- JS writes messages here instead of using alert() -->
+                
                 <div class="form-feedback">
                     <p id="searchStatus" class="form-status" role="status"></p>
 
-                    <!-- Marci's own "Current Listings" button on marcimetzger.com points here -->
+                    <button type="button" id="clearFilters" class="text-link link-button">Clear filters</button>
+
+                    
                     <a class="text-link" href="https://www.zillow.com/profile/marcimetzger" target="_blank" rel="noopener">Browse Marci's current listings on Zillow</a>
                 </div>
 
@@ -291,7 +363,7 @@
         </section>
 
 
-        <!-- THE PAHRUMP VALLEY (general area facts; sources in README.txt) -->
+        
         <section id="valley" class="valley section" aria-labelledby="valleyTitle">
 
             <div class="valley-intro">
@@ -504,8 +576,6 @@
         <p>Copyright &copy; <span id="year">2026</span> Marci Metzger &mdash; All Rights Reserved</p>
     </footer>
 
-
-    
     <dialog id="lightbox" class="lightbox" aria-label="Photo viewer">
         <img id="lightboxImage" src="" alt="">
         <p id="lightboxCount" class="lightbox-count" aria-live="polite"></p>
