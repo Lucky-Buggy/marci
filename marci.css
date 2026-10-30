@@ -18,7 +18,6 @@
     /* spacing / shape */
     --radius: 4px;
     --content-width: 1160px;
-
     --gutter: max(24px, 6vw, calc((100vw - var(--content-width)) / 2));
     --section-space: clamp(64px, 9vw, 100px);
     --header-height: 80px;
@@ -32,7 +31,7 @@
 }
 
 html {
-    scroll-behavior: smooth;  
+    scroll-behavior: smooth;
     scroll-padding-top: var(--header-height);
 }
 
@@ -41,7 +40,7 @@ body {
     line-height: 1.6;
     background: var(--color-bg);
     color: var(--color-ink);
-    overflow-x: hidden;
+    overflow-x: hidden; /* safety net: no sideways scrolling */
 }
 
 img {
@@ -54,14 +53,16 @@ a {
     text-decoration: none;
 }
 
-
+/*for less motion */
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
     }
     * {
         animation-duration: 0.01ms !important;
+        animation-delay: 0s !important;
         transition-duration: 0.01ms !important;
+        transition-delay: 0s !important;
     }
 }
 
@@ -115,7 +116,6 @@ h3 {
     line-height: 1.15;
 }
 
-
 h1 {
     font-size: clamp(2.75rem, 7vw, 5rem);
     font-weight: 300;
@@ -164,13 +164,10 @@ p {
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-
-    /* see-through at the very top of the page, so the hero starts clean */
     background: transparent;
     border-bottom: 1px solid transparent;
     transition: background 0.3s ease, border-color 0.3s ease;
 }
-
 
 .navbar.is-scrolled,
 .navbar.menu-open {
@@ -210,16 +207,21 @@ p {
     gap: 12px;
 }
 
+/* Telephone icon button:*/
 .nav-button {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    min-height: 44px;
-    padding: 0 22px;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
     border: 1px solid var(--color-ink);
-    font-size: 0.9rem;
-    font-weight: 500;
-    white-space: nowrap;
+    border-radius: 50%;
     transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-button svg {
+    width: 18px;
+    height: 18px;
 }
 
 .nav-button:hover {
@@ -282,6 +284,12 @@ p {
     transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
+.button-icon {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+
 .button:hover {
     background: var(--color-accent-text);
     border-color: var(--color-accent-text);
@@ -302,6 +310,7 @@ p {
 /* hero/homepage */
 
 .hero {
+    position: relative;
     min-height: min(80vh, 720px);
 
     display: grid;
@@ -331,9 +340,120 @@ p {
     overflow: hidden;
 }
 
+.hero-image {
+    border-radius: 999px 999px var(--radius) var(--radius);
+}
+
 .hero-image img {
     height: clamp(380px, 46vw, 560px);
     object-fit: cover;
+}
+
+
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes word-rise {
+    from {
+        transform: translateY(105%);
+    }
+    to {
+        transform: none;
+    }
+}
+
+@keyframes photo-unveil {
+    from {
+        clip-path: inset(100% 0 0 0);   /* cropped away from the top, so the photo "opens" upward */
+    }
+    to {
+        clip-path: inset(0);
+    }
+}
+
+@keyframes photo-settle {
+    from {
+        transform: scale(1.12);
+    }
+    to {
+        transform: none;
+    }
+}
+
+@keyframes draw-line {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+    to {
+        clip-path: inset(0);
+    }
+}
+
+.hero-content .eyebrow {
+    animation: fade-up 0.8s ease both;
+}
+
+.word {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    /* extra room at the bottom so the tail of the "p" isn't cut off */
+    padding-bottom: 0.14em;
+    margin-bottom: -0.14em;
+}
+
+.word > span {
+    display: inline-block;
+    animation: word-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.word:nth-child(1) > span {
+    animation-delay: 0.1s;
+}
+
+.word:nth-child(2) > span {
+    animation-delay: 0.24s;
+}
+
+.hero-text {
+    animation: fade-up 0.8s ease 0.45s both;
+}
+
+.hero-buttons {
+    animation: fade-up 0.8s ease 0.6s both;
+}
+
+.hero-image {
+    animation: photo-unveil 1.3s cubic-bezier(0.65, 0, 0.25, 1) 0.15s both;
+}
+
+.hero-image img {
+    animation: photo-settle 1.8s ease-out 0.15s both;
+}
+
+.hero-ridge {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: clamp(28px, 4vw, 52px);
+    pointer-events: none;
+    animation: draw-line 2.6s ease-in-out 0.8s both;
+}
+
+.hero-ridge path {
+    fill: none;
+    stroke: var(--color-accent);
+    stroke-width: 1.2;
+    vector-effect: non-scaling-stroke; 
 }
 
 
@@ -374,13 +494,12 @@ p {
     align-items: center;
 }
 
-
 .sold::before {
     content: "";
     position: absolute;
     left: 0;
     right: 0;
-    bottom: calc(100% - 1px);
+    bottom: calc(100% - 1px);   /* sits on top of the band; 1px overlap avoids a hairline gap */
     height: clamp(28px, 4.5vw, 64px);
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath fill='%23221F1B' d='M0 60V42L90 30 150 40 260 16 330 32 430 6 500 26 570 18 660 36 760 10 840 28 940 20 1040 38 1120 26 1200 36V60Z'/%3E%3C/svg%3E") center bottom / 100% 100% no-repeat;
     pointer-events: none;
@@ -443,7 +562,6 @@ p {
     padding: var(--section-space) var(--gutter) var(--section-space) 60px;
     background: var(--color-ink);
     color: var(--color-surface);
-    /* hairline so this card doesn't blur into the dark "Get It Sold" band above it */
     border-top: 1px solid rgba(255, 255, 255, 0.18);
 }
 
@@ -465,6 +583,44 @@ p {
 
 .section-heading {
     margin-bottom: 50px;
+}
+
+.town-picks {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+.town-picks-label {
+    margin-right: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-ink-soft);
+}
+
+.town-chip {
+    min-height: 44px;
+    padding: 0 18px;
+    border: 1px solid var(--color-ink);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--color-ink);
+    font: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.town-chip:hover {
+    background: var(--color-surface-alt);
+}
+
+/* the chosen town is filled in */
+.town-chip[aria-pressed="true"] {
+    background: var(--color-ink);
+    color: var(--color-surface);
 }
 
 .search-form {
@@ -502,8 +658,6 @@ textarea {
     resize: vertical;
 }
 
-/* number inputs have a built-in spinner that makes them taller than min-height,
-   so give text fields and dropdowns one fixed height */
 input,
 select {
     height: 48px;
@@ -514,22 +668,34 @@ select {
     height: 48px;
 }
 
-/* message line under a form (written by JS) */
 .form-status {
     color: var(--color-ink);
 }
 
-/* an empty message line takes no space; a filled one gets room above what follows */
 .form-status:not(:empty) {
     margin-bottom: 12px;
 }
 
 .form-feedback {
     grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 28px;
 }
 
-.form-feedback .text-link {
-    margin-top: 4px;
+.form-feedback .form-status {
+    flex-basis: 100%;
+    max-width: none;   
+}
+
+.link-button {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
 }
 
 .form-status.is-error {
@@ -552,7 +718,6 @@ select {
 .carousel-track {
     display: flex;
     list-style: none;
-    /* JS sets transform: translateX(...) on this element to move slides */
     transition: transform 0.45s ease;
 }
 
@@ -562,7 +727,7 @@ select {
 
 .carousel-slide img {
     aspect-ratio: 16 / 9;
-    max-height: 70vh;   /* on short laptop screens, keep photo + dots visible together */
+    max-height: 70vh; 
     object-fit: cover;
     object-position: center 65%;
 }
@@ -607,7 +772,6 @@ select {
     margin-top: 12px;
 }
 
-
 .carousel-dots button {
     width: 28px;
     height: 28px;
@@ -646,10 +810,29 @@ select {
     gap: 40px clamp(32px, 4vw, 56px);
 }
 
-/* No boxes: a heavy rule on top of each column, like a printed brochure */
 .service {
+    position: relative;
     padding-top: 24px;
-    border-top: 2px solid var(--color-ink);
+}
+
+.service::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--color-ink);
+}
+
+.js .service.reveal::before {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1s ease 0.25s;
+}
+
+.js .service.reveal.is-visible::before {
+    transform: none;
 }
 
 .service h3 {
@@ -676,7 +859,6 @@ select {
     font-style: normal;
     color: var(--color-ink-soft);
 }
-
 .contact-info .eyebrow {
     margin: 0 0 12px;
     color: var(--color-accent-text);
@@ -756,7 +938,7 @@ select {
     grid-template-columns: 1fr 1fr;
     gap: clamp(40px, 7vw, 100px);
     align-items: start;
-    padding-bottom: 0;   /* the gallery below supplies the space */
+    padding-bottom: 0;
 }
 
 .valley-intro h2 {
@@ -772,7 +954,6 @@ select {
     margin-top: 24px;
 }
 
-/* a ruled list instead of boxes: big number on the left, plain sentence on the right */
 .valley-facts {
     display: grid;
 }
@@ -816,7 +997,7 @@ select {
 }
 
 .slide-open:focus-visible {
-    outline-offset: -4px;   /* draw the focus ring inside the photo so it isn't clipped */
+    outline-offset: -4px; 
 }
 
 .lightbox {
@@ -825,8 +1006,6 @@ select {
     background: rgba(20, 18, 15, 0.97);
     color: var(--color-surface);
 }
-
-/* only use grid while the dialog is open, otherwise it would never hide */
 .lightbox[open] {
     display: grid;
     place-items: center;
@@ -896,13 +1075,9 @@ select {
     transform: translateY(-50%);
 }
 
-/* JS adds this class to <body> while the lightbox is open */
 .lightbox-open {
     overflow: hidden;
 }
-
-
-/* map under the contact section */
 
 .contact-map {
     grid-column: 1 / -1;
@@ -920,6 +1095,8 @@ select {
 }
 
 
+/* fade-in on scroll*/
+
 .js .reveal {
     opacity: 0;
     transform: translateY(18px);
@@ -930,6 +1107,8 @@ select {
     opacity: 1;
     transform: none;
 }
+
+/* the three service columns arrive one after another */
 .js .service.reveal:nth-child(2) {
     transition-delay: 0.12s;
 }
@@ -996,7 +1175,8 @@ footer p {
     background: var(--color-accent-text);
 }
 
-/*tablet*/
+
+/* tablet*/
 
 @media (max-width: 900px) {
 
@@ -1052,6 +1232,10 @@ footer p {
         order: -1;
     }
 
+    .hero-image {
+        border-radius: 200px 200px var(--radius) var(--radius);
+    }
+
     .hero-image img,
     .about-image img {
         height: clamp(220px, min(48vw, 55vh), 380px);
@@ -1101,7 +1285,7 @@ footer p {
 }
 
 
-/* Mobile */
+/* Mobile (max 600px)*/
 
 @media (max-width: 600px) {
 
@@ -1174,16 +1358,11 @@ footer p {
     }
 }
 
-/* very small phones: keep logo + Call Now + menu button on one row */
+/* very small phones: keep logo + phone button + menu button on one row */
 @media (max-width: 400px) {
 
     .logo img {
         height: 36px;
-    }
-
-    .nav-button {
-        padding: 0 14px;
-        font-size: 0.85rem;
     }
 
     .navbar-actions {
@@ -1191,8 +1370,11 @@ footer p {
     }
 }
 
-/*Phone sideways*/
 
+/* 
+   Phones held sideways (wide but very short screens)
+   Stacking the hero would push the headline below the fold, so keep the
+   photo and text side by side like on desktop.*/
 @media (max-width: 900px) and (max-height: 520px) and (orientation: landscape) {
 
     .hero {
