@@ -3,24 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#F6F4EF">
+
+    <script>document.documentElement.classList.add("js");</script>
 
     <title>Marci Metzger | Pahrump Realtor</title>
+    <meta name="description" content="Marci Metzger of The Ridge Realty Group, a Pahrump, Nevada realtor for nearly three decades helping buyers and sellers with confidence.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="marci.css">
+
+    <!-- browser-tab icon: a mountain-ridge line, the same motif as the edge of the dark "Get It Sold" band -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23221F1B'/%3E%3Cpath d='M4 23 11 13 15 18 21 8 28 23' fill='none' stroke='%23C9A065' stroke-width='2.4' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
+
+    <!-- link-preview text (when the URL is shared in a message or on social media) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Marci Metzger | Pahrump Realtor">
+    <meta property="og:description" content="Marci Metzger of The Ridge Realty Group, a Pahrump, Nevada realtor for nearly three decades.">
+
+    <!-- structured data: tells search engines who and where this business is.
+         Every value below already appears on the page. -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "RealEstateAgent",
+        "name": "Marci Metzger",
+        "description": "Pahrump, Nevada realtor with The Ridge Realty Group.",
+        "telephone": "+1-206-919-6886",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "3190 HW-160, Suite F",
+            "addressLocality": "Pahrump",
+            "addressRegion": "NV",
+            "postalCode": "89048",
+            "addressCountry": "US"
+        },
+        "openingHours": "Mo-Su 08:00-19:00",
+        "sameAs": [
+            "https://www.facebook.com/MarciHomes/",
+            "https://www.instagram.com/marcimetzger_theridge/",
+            "https://www.linkedin.com/in/marci-metzger-30642496/",
+            "https://www.yelp.com/biz/xr3yQN_m2SgO0R_7S6p62w"
+        ]
+    }
+    </script>
 </head>
 <body>
+
+    <!-- lets keyboard users jump past the menu -->
+    <a class="skip-link" href="#main">Skip to main content</a>
 
     <!-- NAV -->
     <header class="navbar">
 
-        <a href="#top" class="logo">Marci Metzger</a>
+        <a href="#top" class="logo" aria-label="Marci Metzger Homes, back to top">
+            <img src="logo.png" alt="Marci Metzger Homes" width="536" height="167">
+        </a>
 
         <!-- nav links: anchor -->
-        <nav id="primaryNav">
+        <nav id="primaryNav" class="site-nav" aria-label="Main">
             <a href="#top">Home</a>
             <a href="#about">About</a>
             <a href="#properties">Properties</a>
@@ -30,12 +74,12 @@
 
         <div class="navbar-actions">
 
-            <a href="tel:2069196886" class="nav-button">Call Now</a>
+            <a href="tel:+12069196886" class="nav-button">Call Now</a>
 
             <button
                 id="navToggle"
                 class="nav-toggle"
-                aria-label="Open navigation menu"
+                aria-label="Toggle navigation menu"
                 aria-expanded="false"
                 aria-controls="primaryNav"
             >
@@ -49,7 +93,7 @@
     </header>
 
 
-    <main>
+    <main id="main">
 
         <!-- HERO -->
         <section id="top" class="hero">
@@ -66,14 +110,14 @@
                 </p>
 
                 <div class="hero-buttons">
-                    <a href="tel:2069196886" class="button">Call Now</a>
+                    <a href="tel:+12069196886" class="button">Call Now</a>
                     <a href="#properties" class="button secondary">View Properties</a>
                 </div>
 
             </div>
 
             <div class="hero-image">
-                <img src="nevada.jpg" alt="Pahrump, Nevada real estate">
+                <img src="nevada.jpg" alt="Golf course pond with fountains and mountains in the distance" fetchpriority="high">
             </div>
 
         </section>
@@ -83,13 +127,13 @@
         <section id="about" class="about section">
 
             <div class="about-image">
-                <img src="marci.jpg" alt="Marci Metzger">
+                <img src="marci.jpg" alt="Marci Metzger" loading="lazy">
             </div>
 
             <div class="about-content">
                 <p class="eyebrow">Marci Metzger</p>
                 <h2>Realtor for Nearly 3 Decades</h2>
-                <a href="tel:2069196886" class="phone-link">(206) 919-6886</a>
+                <a href="tel:+12069196886" class="phone-link">(206) 919-6886</a>
             </div>
 
         </section>
@@ -112,7 +156,7 @@
             <div class="stats">
 
                 <div class="stat">
-                    <strong>90+</strong>
+                    <strong>Nearly 90</strong>
                     <span>Clients helped in 2021</span>
                 </div>
 
@@ -162,25 +206,28 @@
 
                 <div class="form-group">
                     <label for="location">Location</label>
-                    <select id="location">
+                    <select id="location" name="location">
                         <option value="">Select</option>
                         <option value="pahrump">Pahrump</option>
+                        <option value="las-vegas">Las Vegas</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="type">Type</label>
-                    <select id="type">
+                    <select id="type" name="type">
                         <option value="">Select</option>
                         <option value="house">House</option>
                         <option value="condo">Condo</option>
+                        <option value="townhouse">Townhouse</option>
+                        <option value="land">Land</option>
+                        <option value="commercial">Commercial</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="sortBy">Sort By</label>
-                    <select id="sortBy">
-                        <option value="">Select</option>
+                    <select id="sortBy" name="sortBy">
                         <option value="newest">Newest</option>
                         <option value="oldest">Oldest</option>
                         <option value="price-asc">Least Expensive to Most</option>
@@ -194,7 +241,7 @@
 
                 <div class="form-group">
                     <label for="bedrooms">Bedrooms</label>
-                    <select id="bedrooms">
+                    <select id="bedrooms" name="bedrooms">
                         <option value="">Any Number</option>
                         <option value="studio">Studio</option>
                         <option value="1">1+</option>
@@ -208,7 +255,7 @@
 
                 <div class="form-group">
                     <label for="baths">Baths</label>
-                    <select id="baths">
+                    <select id="baths" name="baths">
                         <option value="">Any Number</option>
                         <option value="1">1+</option>
                         <option value="2">2+</option>
@@ -221,17 +268,58 @@
 
                 <div class="form-group">
                     <label for="minPrice">Min Price</label>
-                    <input type="number" id="minPrice" placeholder="$">
+                    <input type="number" id="minPrice" name="minPrice" min="0" step="1000" inputmode="numeric" placeholder="$">
                 </div>
 
                 <div class="form-group">
                     <label for="maxPrice">Max Price</label>
-                    <input type="number" id="maxPrice" placeholder="$">
+                    <input type="number" id="maxPrice" name="maxPrice" min="0" step="1000" inputmode="numeric" placeholder="$">
                 </div>
 
                 <button type="submit" class="button search-submit">Search Now</button>
 
+                <!-- JS writes messages here instead of using alert() -->
+                <div class="form-feedback">
+                    <p id="searchStatus" class="form-status" role="status"></p>
+
+                    <!-- Marci's own "Current Listings" button on marcimetzger.com points here -->
+                    <a class="text-link" href="https://www.zillow.com/profile/marcimetzger" target="_blank" rel="noopener">Browse Marci's current listings on Zillow</a>
+                </div>
+
             </form>
+
+        </section>
+
+
+        <!-- THE PAHRUMP VALLEY (general area facts; sources in README.txt) -->
+        <section id="valley" class="valley section" aria-labelledby="valleyTitle">
+
+            <div class="valley-intro">
+                <p class="eyebrow">Know the area</p>
+                <h2 id="valleyTitle">The Pahrump Valley</h2>
+                <p>
+                    Pahrump is an unincorporated town at the southern tip of Nye County, Nevada,
+                    set in a high-desert valley with the Spring Mountains to the east. It sits
+                    roughly an hour&rsquo;s drive west of Las Vegas along Nevada State Route 160,
+                    and the valley has grown steadily as more people have made it home.
+                </p>
+                <p class="source-note">Area facts: U.S. Census Bureau (2020) and Wikipedia, &ldquo;Pahrump, Nevada.&rdquo;</p>
+            </div>
+
+            <dl class="valley-facts">
+                <div class="fact">
+                    <dt>44,738</dt>
+                    <dd>residents at the 2020 census, up from 24,631 in 2000</dd>
+                </div>
+                <div class="fact">
+                    <dt>60 miles</dt>
+                    <dd>west of Las Vegas along Nevada State Route 160</dd>
+                </div>
+                <div class="fact">
+                    <dt>2,700 ft</dt>
+                    <dd>valley elevation, with the Spring Mountains rising to the east</dd>
+                </div>
+            </dl>
 
         </section>
 
@@ -244,28 +332,40 @@
                 <h2>Life in Pahrump</h2>
             </div>
 
-            <div class="carousel" id="galleryCarousel">
+            <div class="carousel" id="galleryCarousel" role="region" aria-roledescription="carousel" aria-label="Photo gallery">
 
                 <div class="carousel-viewport">
                     <ul class="carousel-track">
 
                         <li class="carousel-slide">
-                            <img src="property1.jpg" alt="Pahrump property photo 1">
+                            <button type="button" class="slide-open" aria-label="View larger: Aerial view of a community clubhouse and swimming pools beside a golf course pond">
+                                <img src="property1.jpg" alt="Aerial view of a community clubhouse and swimming pools beside a golf course pond" loading="lazy">
+                            </button>
                         </li>
                         <li class="carousel-slide">
-                            <img src="property2.jpg" alt="Pahrump property photo 2">
+                            <button type="button" class="slide-open" aria-label="View larger: Sunroom with a red leather recliner and floor-to-ceiling windows facing a desert garden">
+                                <img src="property2.jpg" alt="Sunroom with a red leather recliner and floor-to-ceiling windows facing a desert garden" loading="lazy">
+                            </button>
                         </li>
                         <li class="carousel-slide">
-                            <img src="property3.jpg" alt="Pahrump property photo 3">
+                            <button type="button" class="slide-open" aria-label="View larger: Aerial view of a tile-roofed home on a quiet street with mountains behind">
+                                <img src="property3.jpg" alt="Aerial view of a tile-roofed home on a quiet street with mountains behind" loading="lazy">
+                            </button>
                         </li>
                         <li class="carousel-slide">
-                            <img src="property4.jpg" alt="Pahrump property photo 4">
+                            <button type="button" class="slide-open" aria-label="View larger: Aerial view of a home's backyard pool and spa with snow-capped mountains beyond">
+                                <img src="property4.jpg" alt="Aerial view of a home's backyard pool and spa with snow-capped mountains beyond" loading="lazy">
+                            </button>
                         </li>
                         <li class="carousel-slide">
-                            <img src="property5.jpg" alt="Pahrump property photo 5">
+                            <button type="button" class="slide-open" aria-label="View larger: Aerial view of community tennis courts and clubhouse">
+                                <img src="property5.jpg" alt="Aerial view of community tennis courts and clubhouse" loading="lazy">
+                            </button>
                         </li>
                         <li class="carousel-slide">
-                            <img src="property6.jpg" alt="Pahrump property photo 6">
+                            <button type="button" class="slide-open" aria-label="View larger: Aerial view of a tile-roofed home and its backyard pool near a golf course">
+                                <img src="property6.jpg" alt="Aerial view of a tile-roofed home and its backyard pool near a golf course" loading="lazy">
+                            </button>
                         </li>
 
                     </ul>
@@ -339,74 +439,18 @@
 
                 <p class="contact-name">Marci Metzger &mdash; The Ridge Realty Group</p>
 
-                <p>3190 HW-160, Suite F<br>Pahrump, Nevada 89048</p>
+                <address>3190 HW-160, Suite F<br>Pahrump, Nevada 89048</address>
+                <a href="https://www.google.com/maps/search/?api=1&amp;query=3190+HW-160+Suite+F+Pahrump+Nevada+89048" class="text-link" target="_blank" rel="noopener">Get directions</a>
 
-                <a href="tel:2069196886" class="phone-link">(206) 919-6886</a>
+                <a href="tel:+12069196886" class="phone-link">(206) 919-6886</a>
 
-                <p>Open daily: 8:00 AM &ndash; 7:00 PM</p>
+                <p>Open daily: 8:00 AM &ndash; 7:00 PM<br>Appointments outside office hours available upon request. Just call!</p>
 
                 <!-- social links -->
+                
                 <div class="social-links">
                     <a href="https://www.facebook.com/MarciHomes/" class="social-icon" target="_blank" rel="noopener" aria-label="Marci Metzger on Facebook">
-                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path d="M13.5 21v-7.5h2.5l.4-3H13.5V8.4c0-.87.24-1.46 1.5-1.46h1.6V4.35C16.3 4.24 15.4 4.15 14.35 4.15c-2.4 0-4.05 1.46-4.05 4.15V10.5H7.8v3H10.3V21h3.2z"/>
-                        </svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036 27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"/></svg>
                     </a>
 
-                    <a href="https://www.instagram.com/marcimetzger_theridge/" class="social-icon" target="_blank" rel="noopener" aria-label="Marci Metzger on Instagram">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                            <rect x="3" y="3" width="18" height="18" rx="5"/>
-                            <circle cx="12" cy="12" r="4.2"/>
-                            <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/>
-                        </svg>
-                    </a>
-
-                    <a href="https://www.linkedin.com/in/marci-metzger-30642496/" class="social-icon" target="_blank" rel="noopener" aria-label="Marci Metzger on LinkedIn">
-                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path d="M6.94 8.5H3.56V20h3.38V8.5zM5.25 3.5a1.96 1.96 0 100 3.92 1.96 1.96 0 000-3.92zM20.44 20h-3.37v-6.1c0-1.46-.03-3.33-2.03-3.33-2.04 0-2.35 1.6-2.35 3.22V20H9.32V8.5h3.24v1.57h.05c.45-.86 1.56-1.77 3.2-1.77 3.43 0 4.63 2.26 4.63 5.19V20z"/>
-                        </svg>
-                    </a>
-
-                    <a href="https://www.yelp.com/biz/xr3yQN_m2SgO0R_7S6p62w" class="social-icon" target="_blank" rel="noopener" aria-label="Marci Metzger on Yelp">
-                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path d="M12 2a1.4 1.4 0 00-1.4 1.4v7.2a1.4 1.4 0 002.8 0V3.4A1.4 1.4 0 0012 2zM6.6 8.4a1.4 1.4 0 00-1.98 1.98l5 5a1.4 1.4 0 001.98-1.98l-5-5zM21.38 10.38a1.4 1.4 0 00-1.98-1.98l-5 5a1.4 1.4 0 001.98 1.98l5-5zM12 22a1.4 1.4 0 001.4-1.4v-7.2a1.4 1.4 0 00-2.8 0v7.2A1.4 1.4 0 0012 22zM17.4 15.6a1.4 1.4 0 001.98-1.98l-5-5a1.4 1.4 0 00-1.98 1.98l5 5zM2.62 13.62a1.4 1.4 0 001.98 1.98l5-5a1.4 1.4 0 00-1.98-1.98l-5 5z"/>
-                        </svg>
-                    </a>
-                </div>
-
-            </div>
-
-            <form id="contactForm" class="contact-form">
-
-                <label for="name">Name</label>
-                <input type="text" id="name" required placeholder="Juan Dela Cruz">
-
-                <label for="email">Email</label>
-                <input type="email" id="email" required placeholder="example@gmail.com">
-
-                <label for="message">Message</label>
-                <textarea id="message" rows="5"></textarea>
-
-                <button type="submit" class="button">Send Message</button>
-
-            </form>
-
-        </section>
-
-    </main>
-
-
-    <!-- FOOTER -->
-    <footer>
-        <p>Copyright &copy; 2026 Marci Metzger &mdash; All Rights Reserved</p>
-    </footer>
-
-
-    <!-- floating back-to-top button -->
-    <button id="backToTop" class="back-to-top" aria-label="Back to top">&#8593;</button>
-
-
-    <script src="marci.js"></script>
-
-</body>
-    </html>
+                
