@@ -1,4 +1,6 @@
-// MOBILE NAVIGATIOn
+
+
+// MOBILE NAVIGATION
 
 const navbar = document.querySelector(".navbar");
 const navToggle = document.getElementById("navToggle");
@@ -80,7 +82,8 @@ function goToSlide(index) {
         dot.setAttribute("aria-current", dotIndex === currentSlide);
     });
 
-    
+    // "inert" switches off everything inside a slide (clicks, Tab key, screen readers),
+    // so only the photo you can actually see can be focused or opened
     slides.forEach(function (slide, slideIndex) {
         slide.inert = slideIndex !== currentSlide;
     });
@@ -148,6 +151,9 @@ backToTopButton.addEventListener("click", function () {
 });
 
 
+// GALLERY LIGHTBOX
+// Clicking a gallery photo opens it large in a <dialog>. The dialog element is
+// built into the browser: showModal() dims the page, traps focus and lets Esc close it.
 
 const lightbox = document.getElementById("lightbox");
 const lightboxImage = document.getElementById("lightboxImage");
@@ -212,6 +218,11 @@ lightbox.addEventListener("close", function () {
 });
 
 
+// FADE-IN AS SECTIONS SCROLL INTO VIEW
+// Each element below starts slightly faded and low, then settles into place the first
+// time it appears on screen. Nothing above the fold is hidden, and people who have
+// turned on "reduce motion" see everything immediately.
+
 const revealTargets = document.querySelectorAll(
     ".about-image, .about-content, .sold > div, .feature-card > *, .section-heading, " +
     ".search-form, .valley-intro, .valley-facts, .carousel, .service, " +
@@ -237,9 +248,61 @@ if ("IntersectionObserver" in window && !wantsLessMotion) {
 }
 
 
+// STATS COUNT UP
+// When the "Get It Sold" numbers scroll into view, they count up from 0 to their value.
+// The real numbers are already in the HTML, so with no JavaScript (or with "reduce motion")
+// visitors simply see the final text.
+
+const counters = document.querySelectorAll("[data-count]");
+
+function countUp(element) {
+    const target = Number(element.dataset.count);             
+    const decimals = Number(element.dataset.decimals || 0);     // how many digits after the point
+    const duration = 1400;                                      // milliseconds
+    const startTime = performance.now();
+
+    function step(now) {
+        // progress goes from 0 to 1 over the duration
+        const progress = Math.min((now - startTime) / duration, 1);
+
+        // "ease out": fast at first, slowing down as it reaches the target
+        const eased = 1 - Math.pow(1 - progress, 3);
+
+        element.textContent = (target * eased).toFixed(decimals);
+
+        if (progress < 1) {
+            requestAnimationFrame(step);   // ask the browser to call step() again next frame
+        }
+    }
+
+    requestAnimationFrame(step);
+}
+
+if ("IntersectionObserver" in window && !wantsLessMotion) {
+    const countObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                countUp(entry.target);
+                countObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.6 });
+
+    counters.forEach(function (element) {
+        // Freeze the width of the whole number while it still shows the real
+        // text, so the layout doesn't wobble as the digits change...
+        const box = element.parentElement;
+        box.style.minWidth = box.offsetWidth + "px";
+
+        // ...then start from 0 so the final number doesn't flash before it counts up.
+        element.textContent = (0).toFixed(Number(element.dataset.decimals || 0));
+
+        countObserver.observe(element);
+    });
+}
+
+
 // FORM MESSAGES
-// Shows a short message under a form. Used by both forms instead of alert(),
-// because alert() pop-ups block the page and feel out of place on a premium site.
 
 function showFormMessage(element, text, isError) {
     element.textContent = text;
@@ -264,6 +327,7 @@ propertyForm.addEventListener("submit", function (event) {
         return;
     }
 
+
     const choices = [];
 
     addChoice(choices, "location", "");
@@ -284,14 +348,11 @@ propertyForm.addEventListener("submit", function (event) {
         message = "Your search: " + choices.join(" \u00B7 ") + ". ";
     }
 
-    
     message += "Live listings are on Marci's Zillow profile, linked below, or call (206) 919-6886.";
 
     showFormMessage(searchStatus, message, false);
 });
 
-// Adds the visible text of a <select> to the list, but only if the visitor
-// actually chose something (an empty value means "Select" / "Any Number").
 function addChoice(list, selectId, suffix) {
     const select = document.getElementById(selectId);
 
@@ -308,6 +369,40 @@ function addChoice(list, selectId, suffix) {
 }
 
 
+// SEARCH BY TOWN (quick-pick buttons) AND CLEAR FILTERS
+
+const locationSelect = document.getElementById("location");
+const townChips = document.querySelectorAll(".town-chip");
+
+function syncTownChips() {
+    townChips.forEach(function (chip) {
+        const isChosen = chip.dataset.town === locationSelect.value;
+        chip.setAttribute("aria-pressed", isChosen);
+    });
+}
+
+townChips.forEach(function (chip) {
+    chip.addEventListener("click", function () {
+        // tapping the chosen town again un-picks it
+        if (locationSelect.value === chip.dataset.town) {
+            locationSelect.value = "";
+        } else {
+            locationSelect.value = chip.dataset.town;
+        }
+        syncTownChips();
+    });
+});
+
+// the dropdown and the buttons stay in step in both directions
+locationSelect.addEventListener("change", syncTownChips);
+
+document.getElementById("clearFilters").addEventListener("click", function () {
+    propertyForm.reset();                              // every field back to its starting value
+    syncTownChips();
+    showFormMessage(searchStatus, "", false);          // remove any old message
+});
+
+
 // CONTACT FORM
 
 const contactForm = document.getElementById("contactForm");
@@ -318,7 +413,7 @@ contactForm.addEventListener("submit", function (event) {
 
     const name = document.getElementById("name").value.trim();
 
-    //no backend, so the message is not actually sent anywhere
+    // this site has no backend, so the message is not actually sent anywhere
     showFormMessage(
         contactStatus,
         "Thank you, " + name + ". This demo form doesn't send messages yet, so please call (206) 919-6886.",
