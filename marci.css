@@ -2,12 +2,15 @@
 
 :root {
     /* colors */
-    --color-bg: #F6F4EF;          /* warm stone background */
-    --color-surface: #FFFFFF;      /* cards / form fields */
-    --color-surface-alt: #DED6C6;  /* secondary stone surface */
-    --color-ink: #221F1B;          /* near-black text / dark sections */
-    --color-ink-soft: #6B6459;     /* muted body text */
-    --color-accent: #A9793B;       /* brass accent, used sparingly */
+    --color-bg: #F6F4EF;            /* warm stone background */
+    --color-surface: #FFFFFF;       /* cards / form fields */
+    --color-surface-alt: #DED6C6;   /* secondary stone surface */
+    --color-ink: #221F1B;           /* near-black text / dark sections */
+    --color-ink-soft: #5C554B;      /* muted body text (darkened for contrast) */
+    --color-accent: #A9793B;        /* brass: decorative use (dots, focus ring) */
+    --color-accent-text: #77501A;   /* darker brass: text + hover on light backgrounds */
+    --color-accent-on-dark: #C9A065;/* lighter brass: text on dark backgrounds */
+    --color-on-dark-soft: #C9C4BA;  /* muted text on dark backgrounds */
     --color-border: #D8D1C3;
 
     /* type */
@@ -16,10 +19,12 @@
 
     /* spacing / shape */
     --radius: 4px;
-    --max-width: 1200px;
+    --content-width: 1160px;
+
+    --gutter: max(24px, 6vw, calc((100vw - var(--content-width)) / 2));
+    --section-space: clamp(64px, 9vw, 100px);
+    --header-height: 80px;
 }
-
-
 
 
 * {
@@ -29,7 +34,8 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: smooth;  
+    scroll-padding-top: var(--header-height);
 }
 
 body {
@@ -37,6 +43,7 @@ body {
     line-height: 1.6;
     background: var(--color-bg);
     color: var(--color-ink);
+    overflow-x: hidden;
 }
 
 img {
@@ -49,7 +56,7 @@ a {
     text-decoration: none;
 }
 
-/* respect users who've asked for less motion */
+
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
@@ -60,8 +67,7 @@ a {
     }
 }
 
-/* visible keyboard focus everywhere, instead of the browser default outline
-   being suppressed anywhere */
+/* visible keyboard focus everywhere */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -71,22 +77,35 @@ textarea:focus-visible {
     outline-offset: 2px;
 }
 
+/* "Skip to content" link: off-screen until a keyboard user tabs to it */
+.skip-link {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 300;
+    padding: 10px 16px;
+    background: var(--color-ink);
+    color: var(--color-surface);
+    transform: translateY(-200%);
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
 
 /* General layout */
 
 .section {
-    padding: 100px 8%;
-    max-width: var(--max-width);
-    margin: 0 auto;
+    padding: var(--section-space) var(--gutter);
 }
 
 .eyebrow {
     font-family: var(--font-body);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--color-accent);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--color-accent-text);
     margin-bottom: 12px;
 }
 
@@ -94,16 +113,21 @@ h1,
 h2,
 h3 {
     font-family: var(--font-display);
-    font-weight: 500;
-    line-height: 1.1;
+    font-weight: 400;
+    line-height: 1.15;
 }
 
+
 h1 {
-    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-size: clamp(2.75rem, 7vw, 5rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
 }
 
 h2 {
-    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    letter-spacing: -0.01em;
 }
 
 h3 {
@@ -115,56 +139,84 @@ p {
     color: var(--color-ink-soft);
 }
 
+.text-link {
+    display: inline-block;
+    font-weight: 500;
+    color: var(--color-accent-text);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
 
-/* navigation*/
+.text-link:hover {
+    color: var(--color-ink);
+}
+
+
+/* navigation */
 
 .navbar {
     position: sticky;
     top: 0;
     z-index: 100;
 
-    min-height: 80px;
-    padding: 16px 6%;
+    min-height: var(--header-height);
+    padding: 12px var(--gutter);
 
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
 
+    /* see-through at the very top of the page, so the hero starts clean */
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+
+.navbar.is-scrolled,
+.navbar.menu-open {
     background: var(--color-surface);
-    border-bottom: 1px solid var(--color-border);
+    border-bottom-color: var(--color-border);
 }
 
 .logo {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
+    display: inline-flex;
+    align-items: center;
 }
 
-nav {
+.logo img {
+    width: auto;
+    height: 52px;
+}
+
+
+.site-nav {
     display: flex;
     gap: 32px;
 }
 
-nav a {
+.site-nav a {
     font-size: 0.95rem;
     font-weight: 500;
     transition: color 0.2s ease;
 }
 
-nav a:hover {
-    color: var(--color-accent);
+.site-nav a:hover {
+    color: var(--color-accent-text);
 }
 
 .navbar-actions {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
 }
 
 .nav-button {
-    padding: 10px 22px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 22px;
     border: 1px solid var(--color-ink);
     font-size: 0.9rem;
     font-weight: 500;
@@ -177,15 +229,16 @@ nav a:hover {
     color: var(--color-surface);
 }
 
-/* hamburger button: hidden on desktop, shown at the mobile breakpoint below */
+/* hamburger button: hidden on desktop, shown at the tablet breakpoint below */
 .nav-toggle {
     display: none;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
     gap: 5px;
 
-    width: 32px;
-    height: 32px;
+    width: 44px;
+    height: 44px;
     padding: 0;
 
     background: none;
@@ -196,7 +249,7 @@ nav a:hover {
 .nav-toggle span {
     display: block;
     height: 2px;
-    width: 100%;
+    width: 24px;
     background: var(--color-ink);
     transition: transform 0.25s ease, opacity 0.25s ease;
 }
@@ -216,8 +269,11 @@ nav a:hover {
 /* buttons */
 
 .button {
-    display: inline-block;
-    padding: 14px 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 28px;
     background: var(--color-ink);
     color: var(--color-surface);
     border: 1px solid var(--color-ink);
@@ -225,13 +281,12 @@ nav a:hover {
     font-size: 0.95rem;
     font-weight: 500;
     cursor: pointer;
-    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .button:hover {
-    transform: translateY(-2px);
-    background: var(--color-accent);
-    border-color: var(--color-accent);
+    background: var(--color-accent-text);
+    border-color: var(--color-accent-text);
 }
 
 .secondary {
@@ -241,23 +296,22 @@ nav a:hover {
 
 .secondary:hover {
     background: var(--color-ink);
+    border-color: var(--color-ink);
     color: var(--color-surface);
 }
 
 
-/* hero/homepage*/
+/* hero/homepage */
 
 .hero {
-    min-height: 80vh;
+    min-height: min(80vh, 720px);
 
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
     gap: 60px;
 
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 60px 8%;
+    padding: 60px var(--gutter);
 }
 
 .hero-text {
@@ -271,14 +325,21 @@ nav a:hover {
     flex-wrap: wrap;
 }
 
-.hero-image img {
-    height: 560px;
-    object-fit: cover;
+/* the stone background keeps the layout steady while a photo loads */
+.hero-image,
+.about-image {
+    background: var(--color-surface-alt);
     border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.hero-image img {
+    height: clamp(380px, 46vw, 560px);
+    object-fit: cover;
 }
 
 
-/* about section*/
+/* about section */
 
 .about {
     display: grid;
@@ -288,9 +349,9 @@ nav a:hover {
 }
 
 .about-image img {
-    height: 480px;
+    height: clamp(360px, 40vw, 480px);
     object-fit: cover;
-    border-radius: var(--radius);
+    object-position: top; /* keep faces in frame when the photo is cropped */
 }
 
 .about-content .phone-link {
@@ -298,13 +359,14 @@ nav a:hover {
     margin-top: 20px;
     font-weight: 600;
     font-size: 1.1rem;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
 }
 
 
-/* get it sold section*/
+/* get it sold section */
 
 .sold {
+    position: relative;
     background: var(--color-ink);
     color: var(--color-surface);
 
@@ -314,8 +376,20 @@ nav a:hover {
     align-items: center;
 }
 
+
+.sold::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(100% - 1px);
+    height: clamp(28px, 4.5vw, 64px);
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath fill='%23221F1B' d='M0 60V42L90 30 150 40 260 16 330 32 430 6 500 26 570 18 660 36 760 10 840 28 940 20 1040 38 1120 26 1200 36V60Z'/%3E%3C/svg%3E") center bottom / 100% 100% no-repeat;
+    pointer-events: none;
+}
+
 .sold .eyebrow {
-    color: var(--color-accent);
+    color: var(--color-accent-on-dark);
 }
 
 .sold h2 {
@@ -324,33 +398,38 @@ nav a:hover {
 }
 
 .sold p {
-    color: #C9C4BA;
+    color: var(--color-on-dark-soft);
 }
 
 .stats {
     display: flex;
-    gap: 50px;
+    gap: clamp(24px, 4vw, 50px);
 }
 
 .stat {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .stat strong {
     font-family: var(--font-display);
-    font-size: 2.6rem;
-    color: var(--color-accent);
+    font-size: clamp(2rem, 3.4vw, 2.6rem);
+    font-weight: 300;
+    line-height: 1.1;
+    white-space: nowrap;   /* "Nearly 90" must never break onto two lines */
+    color: var(--color-accent-on-dark);
 }
 
 .stat span {
     font-size: 0.9rem;
-    color: #C9C4BA;
+    color: var(--color-on-dark-soft);
 }
 
 
-/* seller/buyers */
+/* sellers / buyers */
 
 .split-section {
     display: grid;
@@ -358,17 +437,20 @@ nav a:hover {
 }
 
 .feature-card {
-    padding: 90px 8%;
+    padding: var(--section-space) 60px var(--section-space) var(--gutter);
     background: var(--color-surface-alt);
 }
 
 .feature-card-dark {
+    padding: var(--section-space) var(--gutter) var(--section-space) 60px;
     background: var(--color-ink);
     color: var(--color-surface);
+    /* hairline so this card doesn't blur into the dark "Get It Sold" band above it */
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .feature-card-dark p {
-    color: #C9C4BA;
+    color: var(--color-on-dark-soft);
 }
 
 .feature-card h2 {
@@ -409,20 +491,55 @@ input,
 select,
 textarea {
     width: 100%;
-    padding: 13px;
-    border: 1px solid var(--color-border);
+    min-height: 48px;
+    padding: 12px 14px;
+    border: 1px solid #A59D8E; /* darker than --color-border so fields are easy to see */
     border-radius: var(--radius);
     background: var(--color-surface);
     font: inherit;
     color: var(--color-ink);
 }
 
+textarea {
+    resize: vertical;
+}
+
+/* number inputs have a built-in spinner that makes them taller than min-height,
+   so give text fields and dropdowns one fixed height */
+input,
+select {
+    height: 48px;
+}
+
 .search-submit {
     align-self: end;
+    height: 48px;
+}
+
+/* message line under a form (written by JS) */
+.form-status {
+    color: var(--color-ink);
+}
+
+/* an empty message line takes no space; a filled one gets room above what follows */
+.form-status:not(:empty) {
+    margin-bottom: 12px;
+}
+
+.form-feedback {
+    grid-column: 1 / -1;
+}
+
+.form-feedback .text-link {
+    margin-top: 4px;
+}
+
+.form-status.is-error {
+    color: #A3262A;
 }
 
 
-/* photo/gallery carousel */
+/* photo gallery carousel */
 
 .carousel {
     position: relative;
@@ -431,6 +548,7 @@ textarea {
 .carousel-viewport {
     overflow: hidden;
     border-radius: var(--radius);
+    background: var(--color-surface-alt);
 }
 
 .carousel-track {
@@ -445,8 +563,10 @@ textarea {
 }
 
 .carousel-slide img {
-    height: 480px;
+    aspect-ratio: 16 / 9;
+    max-height: 70vh;   /* on short laptop screens, keep photo + dots visible together */
     object-fit: cover;
+    object-position: center 65%;
 }
 
 .carousel-arrow {
@@ -485,28 +605,38 @@ textarea {
 .carousel-dots {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
+    gap: 4px;
+    margin-top: 12px;
 }
 
+
 .carousel-dots button {
-    width: 10px;
-    height: 10px;
+    width: 28px;
+    height: 28px;
     padding: 0;
     border: none;
-    border-radius: 50%;
-    background: var(--color-surface-alt);
+    background: none;
     cursor: pointer;
+}
+
+.carousel-dots button::before {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background: #B9B0A0;
     transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.carousel-dots button[aria-current="true"] {
-    background: var(--color-accent);
-    transform: scale(1.2);
+.carousel-dots button[aria-current="true"]::before {
+    background: var(--color-accent-text);
+    transform: scale(1.3);
 }
 
 
-/* SERVICES */
+/* services */
 
 .services {
     background: var(--color-surface-alt);
@@ -515,21 +645,22 @@ textarea {
 .services-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    gap: 40px clamp(32px, 4vw, 56px);
 }
 
+/* No boxes: a heavy rule on top of each column, like a printed brochure */
 .service {
-    padding: 36px;
-    background: var(--color-surface);
-    border-radius: var(--radius);
+    padding-top: 24px;
+    border-top: 2px solid var(--color-ink);
 }
 
 .service h3 {
+    font-size: 1.5rem;
     margin-bottom: 14px;
 }
 
 
-/* contacts section */
+/* contact section */
 
 .contact {
     display: grid;
@@ -541,21 +672,34 @@ textarea {
     margin: 16px 0 24px;
 }
 
-.contact-name {
+.contact-info p,
+.contact-info address {
+    margin: 12px 0;
+    font-style: normal;
+    color: var(--color-ink-soft);
+}
+
+.contact-info .eyebrow {
+    margin: 0 0 12px;
+    color: var(--color-accent-text);
+}
+
+.contact-info .contact-name {
     font-weight: 600;
     color: var(--color-ink);
 }
 
-.contact-info p {
-    margin: 12px 0;
+.contact-info address {
+    margin-bottom: 4px;
 }
 
 .contact-info .phone-link {
-    display: inline-block;
-    margin: 8px 0;
+    display: block;
+    width: fit-content;
+    margin: 16px 0;
     font-weight: 600;
     font-size: 1.2rem;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
 }
 
 .social-links {
@@ -570,14 +714,14 @@ textarea {
     align-items: center;
     justify-content: center;
 
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
 
     border: 1px solid var(--color-ink);
     border-radius: 50%;
 
     color: var(--color-ink);
-    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 .social-icon svg {
@@ -588,7 +732,6 @@ textarea {
 .social-icon:hover {
     background: var(--color-ink);
     color: var(--color-surface);
-    transform: translateY(-2px);
 }
 
 .contact-form {
@@ -608,14 +751,210 @@ textarea {
 }
 
 
-/* footer section */
+/* the Pahrump valley */
+
+.valley {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 7vw, 100px);
+    align-items: start;
+    padding-bottom: 0;   /* the gallery below supplies the space */
+}
+
+.valley-intro h2 {
+    margin-bottom: 20px;
+}
+
+.valley-intro p + p {
+    margin-top: 16px;
+}
+
+.source-note {
+    font-size: 0.8rem;
+    margin-top: 24px;
+}
+
+/* a ruled list instead of boxes: big number on the left, plain sentence on the right */
+.valley-facts {
+    display: grid;
+}
+
+.fact {
+    display: grid;
+    grid-template-columns: minmax(140px, 0.5fr) 1fr;
+    gap: 24px;
+    align-items: baseline;
+    padding: 24px 0;
+    border-top: 1px solid var(--color-border);
+}
+
+.fact:last-child {
+    border-bottom: 1px solid var(--color-border);
+}
+
+.fact dt {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    white-space: nowrap;
+    color: var(--color-accent-text);
+}
+
+.fact dd {
+    color: var(--color-ink-soft);
+}
+
+
+/* gallery: photo buttons + lightbox */
+
+.slide-open {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-in;
+}
+
+.slide-open:focus-visible {
+    outline-offset: -4px;   /* draw the focus ring inside the photo so it isn't clipped */
+}
+
+.lightbox {
+    border: 0;
+    padding: 0;
+    background: rgba(20, 18, 15, 0.97);
+    color: var(--color-surface);
+}
+
+/* only use grid while the dialog is open, otherwise it would never hide */
+.lightbox[open] {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.lightbox img {
+    width: auto;
+    max-width: min(94vw, 1200px);
+    max-height: 80vh;
+    object-fit: contain;
+}
+
+.lightbox-count {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    max-width: none;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--color-on-dark-soft);
+}
+
+.lightbox-button {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    background: rgba(34, 31, 27, 0.7);
+    color: var(--color-surface);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.lightbox-button:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.lightbox-button:focus-visible {
+    outline-color: var(--color-accent-on-dark);
+}
+
+.lightbox-close {
+    top: 16px;
+    right: 16px;
+    font-size: 1.6rem;
+}
+
+.lightbox-prev {
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.lightbox-next {
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* JS adds this class to <body> while the lightbox is open */
+.lightbox-open {
+    overflow: hidden;
+}
+
+
+/* map under the contact section */
+
+.contact-map {
+    grid-column: 1 / -1;
+    height: clamp(260px, 32vw, 380px);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--color-surface-alt);
+}
+
+.contact-map iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+
+.js .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+}
+.js .service.reveal:nth-child(2) {
+    transition-delay: 0.12s;
+}
+
+.js .service.reveal:nth-child(3) {
+    transition-delay: 0.24s;
+}
+
+
+/* footer */
 
 footer {
-    padding: 30px 8%;
+    padding: 30px var(--gutter);
     background: var(--color-ink);
-    color: #C9C4BA;
+    color: var(--color-on-dark-soft);
     text-align: center;
     font-size: 0.85rem;
+}
+
+/* p has max-width: 60ch, so centre the footer's paragraph box too */
+footer p {
+    margin: 0 auto;
+    color: inherit;
 }
 
 
@@ -645,7 +984,7 @@ footer {
     opacity: 0;
     visibility: hidden;
     transform: translateY(10px);
-    transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease, background 0.2s ease;
 }
 
 /* JS toggles this class on scroll */
@@ -656,17 +995,18 @@ footer {
 }
 
 .back-to-top:hover {
-    background: var(--color-accent);
+    background: var(--color-accent-text);
 }
 
-
-/* table responsive */
+/*tablet*/
 
 @media (max-width: 900px) {
 
-    /* collapse the inline nav into a dropdown panel triggered by the
-       hamburger button */
-    nav {
+    :root {
+        --header-height: 72px;
+    }
+
+    .site-nav {
         position: absolute;
         top: 100%;
         left: 0;
@@ -680,15 +1020,17 @@ footer {
 
         max-height: 0;
         overflow: hidden;
-        transition: max-height 0.3s ease;
+        visibility: hidden;
+        transition: max-height 0.3s ease, visibility 0.3s ease;
     }
 
-    nav.is-open {
+    .site-nav.is-open {
         max-height: 320px;
+        visibility: visible;
     }
 
-    nav a {
-        padding: 16px 6%;
+    .site-nav a {
+        padding: 16px var(--gutter);
         border-top: 1px solid var(--color-border);
     }
 
@@ -705,6 +1047,7 @@ footer {
 
     .hero {
         gap: 40px;
+        min-height: auto;
     }
 
     .hero-image {
@@ -713,7 +1056,11 @@ footer {
 
     .hero-image img,
     .about-image img {
-        height: 380px;
+        height: clamp(220px, min(48vw, 55vh), 380px);
+    }
+
+    .about {
+        gap: 40px;
     }
 
     .about-image {
@@ -728,6 +1075,16 @@ footer {
         grid-template-columns: 1fr;
     }
 
+    /* cards are stacked now, so both use the same side padding */
+    .feature-card,
+    .feature-card-dark {
+        padding: 64px var(--gutter);
+    }
+
+    .feature-card-dark {
+        border-top: 0;
+    }
+
     .search-form {
         grid-template-columns: 1fr 1fr;
     }
@@ -736,32 +1093,32 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    .carousel-slide img {
-        height: 360px;
+    .valley {
+        grid-template-columns: 1fr;
+    }
+
+    .contact {
+        gap: 50px;
     }
 }
 
 
-/*  MOBILE responsive(≤ 600px) */
+/* Mobile */
 
 @media (max-width: 600px) {
 
-    .section {
-        padding: 70px 6%;
+    .hero {
+        padding: 40px var(--gutter);
     }
 
-    .hero {
-        padding: 50px 6%;
-        min-height: auto;
+    .hero-image img,
+    .about-image img {
+        height: clamp(220px, min(75vw, 55vh), 300px);
     }
 
     .hero-buttons {
         flex-direction: column;
         align-items: stretch;
-    }
-
-    .hero-buttons .button {
-        text-align: center;
     }
 
     .search-form {
@@ -773,23 +1130,98 @@ footer {
     }
 
     .stats {
-        gap: 30px;
+        gap: 24px;
         flex-wrap: wrap;
     }
 
-    .carousel-slide img {
-        height: 280px;
+    .stat {
+        flex: 1 1 140px;
     }
 
-    .carousel-arrow {
-        width: 36px;
-        height: 36px;
+    .stat strong {
+        font-size: 2.2rem;
+    }
+
+    .carousel-slide img {
+        aspect-ratio: 4 / 3;
+    }
+
+    .fact {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .lightbox-prev,
+    .lightbox-next {
+        top: auto;
+        bottom: 16px;
+        transform: none;
+    }
+
+    .lightbox-prev {
+        left: 24px;
+    }
+
+    .lightbox-next {
+        right: 24px;
+    }
+
+    .contact-form button {
+        align-self: stretch;
     }
 
     .back-to-top {
         right: 16px;
         bottom: 16px;
-        width: 44px;
-        height: 44px;
     }
-    }    
+}
+
+/* very small phones: keep logo + Call Now + menu button on one row */
+@media (max-width: 400px) {
+
+    .logo img {
+        height: 36px;
+    }
+
+    .nav-button {
+        padding: 0 14px;
+        font-size: 0.85rem;
+    }
+
+    .navbar-actions {
+        gap: 4px;
+    }
+}
+
+/*Phone sideways*/
+
+@media (max-width: 900px) and (max-height: 520px) and (orientation: landscape) {
+
+    .hero {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        padding: 32px var(--gutter);
+    }
+
+    .hero-image {
+        order: 0;
+    }
+
+    .hero-image img {
+        height: min(300px, 62vh);
+    }
+
+    h1 {
+        font-size: clamp(2.25rem, 6vw, 3rem);
+    }
+
+    .hero-text {
+        margin: 16px 0 24px;
+        font-size: 1rem;
+    }
+
+    .hero-buttons {
+        flex-direction: row;
+        align-items: center;
+    }
+}
